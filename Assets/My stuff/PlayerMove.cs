@@ -5,20 +5,27 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour {
 public float speed;
+private float dead = 2;
+private float score = 0;
+private float ends = 0;
+private float GERANDOM;
 public GameObject start;
 public GameObject lost;
-public float dead = 2;
 public GameObject Playervis;
 public GameObject Flipvis;
 public GameObject restart;
-public Text ScoreText;
-public float score = 0;
-private float ends = 0;
 public GameObject Fall;
 public GameObject Winter;
 public GameObject Snow;
 public GameObject Leaves;
+public GameObject Summer;
+public GameObject Butterflies;
 public GameObject startScreen;
+public GameObject GE11;
+public GameObject GE12;
+public GameObject GE13;
+public Text ScoreText;
+
 //public GameObject firewrk;
 
 	// Use this for initialization
@@ -30,10 +37,16 @@ public GameObject startScreen;
 	Playervis.SetActive(true);
     Flipvis.SetActive(false);
     dead = 2;
-    Winter.SetActive(true);
+    Winter.SetActive(false);
     Fall.SetActive(false);
-    Snow.SetActive(true);
+    Snow.SetActive(false);
     Leaves.SetActive(false);
+    Summer.SetActive(true);
+    Butterflies.SetActive(true);
+
+
+
+
     //LEVEL INITIALIZATIONgameObject.transform.position = restart.transform.position;
     
 	}
@@ -48,6 +61,31 @@ public GameObject startScreen;
             Flipvis.SetActive(false);
             score = 0;
             startScreen.SetActive(false);
+               
+            GERANDOM = Random.Range(0, 2);
+            Debug.Log(GERANDOM);
+
+            if(GERANDOM == 0) {
+                GE11.SetActive(true);
+                GE12.SetActive(false);
+                GE11.SetActive(false);
+                Debug.Log("statue1");
+            }
+
+            if(GERANDOM == 1) {
+                GE11.SetActive(false);
+                GE12.SetActive(true);
+                GE11.SetActive(false);
+                Debug.Log("statue2");
+            }
+
+            if(GERANDOM == 2) {
+                GE11.SetActive(false);
+                GE12.SetActive(false);
+                GE11.SetActive(true);
+                Debug.Log("statue3");
+            }
+
     	}
         if(dead == 2) {
     startScreen.SetActive(true);
@@ -86,6 +124,11 @@ public GameObject startScreen;
                 Snow.SetActive(false);
                 Leaves.SetActive(true);
                 speed = 40;
+            } if(ends == 2){
+                Snow.SetActive(true);
+                Winter.SetActive(true);
+                Fall.SetActive(false);
+                Leaves.SetActive(false);
             }
     	} else if(other.tag == "Obstacle") {
             Debug.Log("Unity is stupid");
@@ -95,10 +138,13 @@ public GameObject startScreen;
     		speed = 0;
     		Playervis.SetActive(false);
             Flipvis.SetActive(true);
-            Winter.SetActive(true);
+            Winter.SetActive(false);
             Fall.SetActive(false);
-            Snow.SetActive(true);
+            Snow.SetActive(false);
             Leaves.SetActive(false);
+            Summer.SetActive(true);
+            Butterflies.SetActive(true);
+            ends = 0;
     	   	
     }
 }
